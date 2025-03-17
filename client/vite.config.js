@@ -7,7 +7,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'https://order-management-two.vercel.app,
+        target: 'https://order-management-two.vercel.app',
         changeOrigin: true,
       },
     },
