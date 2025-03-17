@@ -3,6 +3,7 @@ const orderController = require('../controllers/orderController');
 const userController = require('../controllers/userController');
 const productController = require('../controllers/productController');
 const rateLimiter = require('../middleware/rateLimiter');
+const validateObjectId = require('../middleware/validateObjectId');
 
 const router = express.Router();
 
@@ -11,7 +12,7 @@ router.use(rateLimiter);
 
 // Order routes
 router.post('/orders', orderController.createOrder);
-router.get('/orders/:userId', orderController.getUserOrders);
+router.get('/orders/:userId', validateObjectId('userId'), orderController.getUserOrders);
 
 // User routes
 router.route('/users')
@@ -19,9 +20,9 @@ router.route('/users')
   .post(userController.createUser);
 
 router.route('/users/:id')
-  .get(userController.getUser)
-  .patch(userController.updateUser)
-  .delete(userController.deleteUser);
+  .get(validateObjectId(), userController.getUser)
+  .patch(validateObjectId(), userController.updateUser)
+  .delete(validateObjectId(), userController.deleteUser);
 
 // Product routes
 router.route('/products')
@@ -29,8 +30,8 @@ router.route('/products')
   .post(productController.createProduct);
 
 router.route('/products/:id')
-  .get(productController.getProduct)
-  .patch(productController.updateProduct)
-  .delete(productController.deleteProduct);
+  .get(validateObjectId(), productController.getProduct)
+  .patch(validateObjectId(), productController.updateProduct)
+  .delete(validateObjectId(), productController.deleteProduct);
 
 module.exports = router;

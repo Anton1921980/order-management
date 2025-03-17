@@ -8,6 +8,7 @@ const apiRateLimiter = rateLimit({
   legacyHeaders: false, // Disable the `X-RateLimit-*` headers
   message: {
     status: 429,
+    error: true,
     message: 'Too many requests, please try again after a minute'
   }
 });

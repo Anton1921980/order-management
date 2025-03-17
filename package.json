@@ -2,10 +2,16 @@
   "name": "order-management-api",
   "version": "1.0.0",
   "main": "src/server.js",
+  "type": "commonjs",
   "scripts": {
     "start": "node src/server.js",
     "dev": "nodemon src/server.js",
-    "test": "jest --watchAll --verbose",
+    "test": "jest --verbose --config=jest.config.js",
+    "test:watch": "jest --watchAll --verbose --config=jest.config.js",
+    "test:api": "jest ./src/tests/api.test.js --verbose --config=jest.config.js",
+    "test:backend": "jest --verbose --config=jest.config.js",
+    "test:frontend": "cd client && npm run test",
+    "test:all": "npm run test:backend && npm run test:frontend",
     "seed": "node src/config/seedData.js"
   },
   "keywords": [],
@@ -18,12 +24,13 @@
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "express-rate-limit": "^7.5.0",
-    "jest": "^29.7.0",
     "jsonwebtoken": "^9.0.2",
-    "mongoose": "^8.12.1",
-    "supertest": "^7.0.0"
+    "mongoose": "^8.12.1"
   },
   "devDependencies": {
-    "nodemon": "^3.1.9"
+    "jest": "^29.7.0",
+    "mongodb-memory-server": "^8.12.2",
+    "nodemon": "^3.1.9",
+    "supertest": "^7.0.0"
   }
 }

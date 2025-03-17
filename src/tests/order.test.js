@@ -1,9 +1,12 @@
 const mongoose = require('mongoose');
 const supertest = require('supertest');
-const app = require('../server');
 const User = require('../models/userModel');
 const Product = require('../models/productModel');
 const Order = require('../models/orderModel');
+
+// Set NODE_ENV to test before importing server
+process.env.NODE_ENV = 'test';
+const app = require('../server');
 
 const request = supertest(app);
 

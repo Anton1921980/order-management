@@ -18,19 +18,19 @@ mongoose.connect(process.env.MONGODB_URI)
 // Sample users data
 const users = [
   {
-    name: 'John Doe',
-    email: 'john@example.com',
+    name: 'Mike Tyson',
+    email: 'mt@example.com',
     balance: 1000
   },
   {
-    name: 'Jane Smith',
-    email: 'jane@example.com',
+    name: 'Lennox Lewis',
+    email: 'll@example.com',
     balance: 750
   },
   {
-    name: 'Bob Johnson',
-    email: 'bob@example.com',
-    balance: 500
+    name: 'George Foreman',
+    email: 'gf@example.com',
+    balance: 800
   }
 ];
 

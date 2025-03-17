@@ -8,6 +8,25 @@ const { AppError } = require('../middleware/errorHandler');
 exports.createOrder = async (req, res, next) => {
   const { userId, productId, quantity } = req.body;
 
+  // Validate required fields
+  if (!userId || !productId || !quantity) {
+    return next(new AppError('Missing required fields: userId, productId, and quantity are required', 400));
+  }
+
+  // Validate quantity
+  if (isNaN(quantity) || parseInt(quantity) <= 0) {
+    return next(new AppError('Quantity must be a positive number', 400));
+  }
+
+  // Validate ObjectIds
+  if (!mongoose.Types.ObjectId.isValid(userId)) {
+    return next(new AppError(`Invalid userId format: ${userId}`, 400));
+  }
+
+  if (!mongoose.Types.ObjectId.isValid(productId)) {
+    return next(new AppError(`Invalid productId format: ${productId}`, 400));
+  }
+
   // Start a session for transaction
   const session = await mongoose.startSession();
   session.startTransaction();
@@ -75,6 +94,11 @@ exports.createOrder = async (req, res, next) => {
 exports.getUserOrders = async (req, res, next) => {
   try {
     const { userId } = req.params;
+
+    // Validate ObjectId (this should be handled by middleware, but adding as a fallback)
+    if (!mongoose.Types.ObjectId.isValid(userId)) {
+      return next(new AppError(`Invalid userId format: ${userId}`, 400));
+    }
 
     // Check if user exists
     const user = await User.findById(userId);
